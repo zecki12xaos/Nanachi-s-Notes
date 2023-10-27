@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Death Note</title>
+    <style>
+        body {
+            background-color: #333333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            margin-bottom: 500px;
+        }
+        .text-box {
+            background-color: #555555;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: "Comic Sans MS", cursive;
+            text-align: center;
+        }
+        .text-box h1, .text-box p {
+            color: #FFFFFF;
+            font-family: "Comic Sans MS", cursive;
+            display: block;
+        }
+        img {
+            width: 20%;
+        }
+        .text-box textarea {
+            background-color: #222222;
+            color: #FFFFFF;
+        }
+        #font-selector {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #333333;
+            color: #FFFFFF;
+        }
+        #text-size-slider {
+            background-color: #222222;
+            border-radius: 20px;
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 150px; /* Ширина ползунка */
+            appearance: none; /* Скрываем стандартный стиль ползунка */
+        }
+        #text-size-slider::-webkit-slider-thumb {
+            width: 20px; /* Ширина бегунка ползунка */
+            height: 20px; /* Высота бегунка ползунка */
+            background-color: #666666; /* Цвет бегунка (серый) */
+            border: 2px solid #FFFFFF; /* Обводка бегунка (белая) */
+            border-radius: 20px; /* Радиус границы бегунка (20px) */
+            appearance: none; /* Скрываем стандартный стиль бегунка */
+        }
+    </style>
+</head>
+<body>
+    <img src="https://i.imgur.com/wqeJxlZ.png">
+    <div class="text-box">
+        <select id="font-selector">
+            <option value="Comic Sans MS">Comic Sans MS</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Courier New">Courier New</option>
+            <option value="Candara">Candara</option>
+            <option value="Courier">Courier</option>
+            <option value="Didot (serif)">Didot (serif)</option>
+        </select>
+        <h1>exodus</h1>
+        <textarea rows="5" cols="50" id="text-area"></textarea>
+        <input type="range" id="text-size-slider" min="8" max="40" step="1" value="16">
+    </div>
+    <script>
+        const fontSelector = document.getElementById("font-selector");
+        const textArea = document.getElementById("text-area");
+        const textSizeSlider = document.getElementById("text-size-slider");
+
+        // Загрузка сохраненного текста при загрузке страницы
+        window.addEventListener("load", function() {
+            const savedText = localStorage.getItem("savedText");
+            if (savedText) {
+                textArea.value = savedText;
+            }
+        });
+
+        fontSelector.addEventListener("change", function() {
+            const selectedFont = fontSelector.value;
+            textArea.style.fontFamily = selectedFont;
+        });
+
+        textSizeSlider.addEventListener("input", function() {
+            const textSize = textSizeSlider.value + "px";
+            textArea.style.fontSize = textSize;
+        });
+
+        // Сохранение текста в локальное хранилище при каждом изменении
+        textArea.addEventListener("input", function() {
+            const textValue = textArea.value;
+            localStorage.setItem("savedText", textValue);
+        });
+    </script>
+</body>
+</html>
